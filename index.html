@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenMoonDev — Indie Game Studio</title>
+    <meta name="description" content="GreenMoonDev — independent mobile game studio. We create casual, horror and arcade games for Android.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a1f0a'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%234ade80'%3E🌙%3C/text%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a1410;
+            --bg-alt: #0f1f17;
+            --text: #e8f5e9;
+            --text-dim: #9ccaa8;
+            --accent: #4ade80;
+            --accent-bright: #86efac;
+            --border: rgba(74, 222, 128, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 20, 16, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 28px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-bright);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            background:
+                radial-gradient(ellipse at center top, rgba(74, 222, 128, 0.12), transparent 60%),
+                radial-gradient(ellipse at center bottom, rgba(74, 222, 128, 0.05), transparent 70%),
+                var(--bg);
+        }
+
+        .moon {
+            font-size: 72px;
+            margin-bottom: 32px;
+            filter: drop-shadow(0 0 30px rgba(74, 222, 128, 0.5));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .tag {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 84px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            max-width: 900px;
+            margin-bottom: 28px;
+            background: linear-gradient(180deg, #ffffff 0%, #9ccaa8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 640px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: #0a1410;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            margin-left: 12px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(74, 222, 128, 0.1);
+            box-shadow: none;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        .section-lead {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 640px;
+            margin-bottom: 60px;
+        }
+
+        /* Features grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            border-color: rgba(74, 222, 128, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: var(--text-dim);
+            font-size: 15px;
+        }
+
+        /* Games */
+        .games-section {
+            background:
+                radial-gradient(ellipse at top, rgba(74, 222, 128, 0.08), transparent 50%),
+                var(--bg);
+        }
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .game-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            border-color: rgba(74, 222, 128, 0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-icon {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-icon.steal {
+            background: linear-gradient(135deg, #4a7c3f, #2d5a27);
+        }
+
+        .game-icon.horror {
+            background: linear-gradient(135deg, #2a1a1a, #1a0a0a);
+        }
+
+        .game-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .game-meta {
+            color: var(--accent);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .game-card p {
+            color: var(--text-dim);
+            font-size: 15px;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .game-link {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; }
+        }
+
+        .about-visual {
+            aspect-ratio: 1;
+            background:
+                radial-gradient(circle at 30% 30%, #4ade80, #1a4a2a 60%, #0a1410 100%);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 80px rgba(74, 222, 128, 0.3);
+        }
+
+        .about-visual::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 12%;
+            height: 12%;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+        }
+
+        .about-visual::after {
+            content: '';
+            position: absolute;
+            top: 55%;
+            left: 60%;
+            width: 18%;
+            height: 18%;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+            padding: 120px 24px;
+            background:
+                radial-gradient(ellipse at center, rgba(74, 222, 128, 0.1), transparent 60%),
+                var(--bg);
+        }
+
+        .contact h2 {
+            margin: 0 auto 24px;
+        }
+
+        .contact p {
+            color: var(--text-dim);
+            font-size: 18px;
+            max-width: 540px;
+            margin: 0 auto 32px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links {
+            margin-top: 12px;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 16px 20px; }
+            nav a { margin-left: 16px; font-size: 13px; }
+            section { padding: 60px 20px; }
+            .btn-outline { margin-left: 0; margin-top: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">🌙 GreenMoonDev</a>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="moon">🌙</div>
+    <div class="tag">Indie Game Studio</div>
+    <h1>We make games that haunt your screen.</h1>
+    <p>GreenMoonDev is an independent mobile game studio crafting casual, horror and arcade experiences for Android — built with care, played with chills.</p>
+    <div>
+        <a href="#games" class="btn">Our games</a>
+        <a href="#about" class="btn btn-outline">Learn more</a>
+    </div>
+</section>
+
+<section id="about">
+    <div class="about-grid">
+        <div>
+            <div class="section-tag">Who we are</div>
+            <h2>A small studio,  under a green moon.</h2>
+            <p class="section-lead">Founded with a love for weird ideas and playable stories, GreenMoonDev builds mobile games that feel personal. We work fast, ship often, and chase the kind of moments that stick with players long after they close the app.</p>
+            <p class="section-lead">From sneaking past a Brainrot mother to escaping a hunting monster — our worlds are small, strange, and made by hand.</p>
+        </div>
+        <div class="about-visual"></div>
+    </div>
+</section>
+
+<section>
+    <div class="section-tag">What we do</div>
+    <h2>Three things,  done right.</h2>
+
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">🎮</div>
+            <h3>Game Development</h3>
+            <p>We design and develop original mobile games for Android — from first sketch to Play Store release.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🎨</div>
+            <h3>Art & Design</h3>
+            <p>Every character, every screen — crafted in-house with attention to mood, style and the feel of touch.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔊</div>
+            <h3>Sound & Atmosphere</h3>
+            <p>From cute to creepy, audio carries our worlds. We build soundscapes you feel through your headphones.</p>
+        </div>
+    </div>
+</section>
+
+<section id="games" class="games-section">
+    <div class="section-tag">Our games</div>
+    <h2>What we've built.</h2>
+    <p class="section-lead">Available now on Google Play.</p>
+
+    <div class="games">
+        <a href="https://play.google.com/store/apps/details?id=com.danielmamatov.stealaminimemerot" class="game-card" target="_blank" rel="noopener">
+            <div class="game-icon steal">🫨</div>
+            <div class="game-meta">Action · Casual</div>
+            <h3>Steal a Baby Brainrot</h3>
+            <p>Dare to sneak into the nest and steal a baby Brainrot right under its mother's nose? Creep, grab, and escape — the rarer the baby, the fiercer the chase.</p>
+            <span class="game-link">View on Google Play →</span>
+        </a>
+
+        <a href="https://play.google.com/store/apps/details?id=com.danielmamatov.horrorescapedevourermonsters" class="game-card" target="_blank" rel="noopener">
+            <div class="game-icon horror">😬</div>
+            <div class="game-meta">Horror · Action</div>
+            <h3>Horror Escape Brainrot Monster</h3>
+            <p>A quiet town. A graveyard on the hill. Explore eerie streets, find what opens your path, and survive — the Brainrot Monster never stops hunting.</p>
+            <span class="game-link">View on Google Play →</span>
+        </a>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <div class="section-tag">Get in touch</div>
+    <h2>Say hello.</h2>
+    <p>Questions, ideas, business inquiries — we read every message.</p>
+    <a href="mailto:deatmoon11@gmail.com" class="btn">deatmoon11@gmail.com</a>
+</section>
+
+<footer>
+    <div>© 2026 GreenMoonDev. All rights reserved.</div>
+    <div class="footer-links">
+        <a href="https://play.google.com/store/apps/dev?id=8152361802725391296" target="_blank" rel="noopener">Google Play</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:deatmoon11@gmail.com">Contact</a>
+    </div>
+</footer>
+
+</body>
+</html>
