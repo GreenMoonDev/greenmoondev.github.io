@@ -259,20 +259,21 @@
             aspect-ratio: 1;
             border-radius: 18px;
             margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 90px;
             overflow: hidden;
             position: relative;
+            background: #0a1410;
         }
 
-        .game-icon.steal {
-            background: linear-gradient(135deg, #4a7c3f, #2d5a27);
+        .game-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
         }
 
-        .game-icon.horror {
-            background: linear-gradient(135deg, #2a1a1a, #1a0a0a);
+        .game-card:hover .game-icon img {
+            transform: scale(1.05);
         }
 
         .game-card h3 {
@@ -461,7 +462,9 @@
 
     <div class="games">
         <a href="https://play.google.com/store/apps/details?id=com.danielmamatov.stealaminimemerot" class="game-card" target="_blank" rel="noopener">
-            <div class="game-icon steal">🫨</div>
+            <div class="game-icon">
+                <img src="steal-a-baby-brainrot.png" alt="Steal a Baby Brainrot game icon" loading="lazy">
+            </div>
             <div class="game-meta">Action · Casual</div>
             <h3>Steal a Baby Brainrot</h3>
             <p>Dare to sneak into the nest and steal a baby Brainrot right under its mother's nose? Creep, grab, and escape — the rarer the baby, the fiercer the chase.</p>
@@ -469,7 +472,9 @@
         </a>
 
         <a href="https://play.google.com/store/apps/details?id=com.danielmamatov.horrorescapedevourermonsters" class="game-card" target="_blank" rel="noopener">
-            <div class="game-icon horror">😬</div>
+            <div class="game-icon">
+                <img src="horror-escape-brainrot-monster.png" alt="Horror Escape Brainrot Monster game icon" loading="lazy">
+            </div>
             <div class="game-meta">Horror · Action</div>
             <h3>Horror Escape Brainrot Monster</h3>
             <p>A quiet town. A graveyard on the hill. Explore eerie streets, find what opens your path, and survive — the Brainrot Monster never stops hunting.</p>
